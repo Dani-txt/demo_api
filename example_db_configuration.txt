@@ -1,0 +1,50 @@
+# Database config
+spring.datasource.url=jdbc:postgresql://ep-dry-hat-ahxmrkii-pooler.c-3.us-east-1.aws.neon.tech:5432/neondb?sslmode=require&channel_binding=require
+spring.datasource.username=neondb_owner
+spring.datasource.password=${YOUR_PASS}
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Hikari config
+spring.datasource.hikari.maximum-pool-size=3
+spring.datasource.hikari.minimum-idle=1
+spring.datasource.hikari.connection-timeout=10000
+spring.datasource.hikari.leak-detection-threshold=60000
+
+# JPA config CORREGIDA para Session Pooler
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# Otros
+server.address=0.0.0.0
+server.port=${PORT:10000}
+
+# SpringDoc
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.enabled=true
+springdoc.swagger-ui.path=/doc/swagger-ui.html
+spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false
+
+management.endpoints.web.exposure.include=health,info
+management.endpoint.health.show-details=always
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+
+Archivos necesarios para docker install
+.dockerignore:
+.git
+.gitignore
+target/
+*.md
+
+
+Dockerfile:
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-Dserver.port=${PORT:8080}", "-jar", "app.jar"]
