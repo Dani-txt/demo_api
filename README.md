@@ -1,8 +1,11 @@
 #  :convenience_store: Demo E-Commerce API
 
-API RESTful para plataforma de e-commerce desarrollada con fines académicos.  
+API RESTful para plataforma de e-commerce desarrollada con fines académicos.
+
 Enfocado en la aplicación de buenas prácticas, metodologías de trabajo y herramientas modernas de desarrollo.
-Free Source
+
+Stack 100% gratuito - Herramientas y servicios utilizados son free source y/o tienen planes gratuitos
+
 ---
 
 ## :clipboard: Alcance del Proyecto
@@ -56,3 +59,16 @@ Sistema de e-commerce básico:
 - **UpTimeRobot** (keep-alive gratuito)
 
 ---
+
+### Roadmap previsto 
+
+Alcances ajustables según calendario y carga academica
+
+| Fase | Estado | Entregable |
+|------|--------|------------|
+| **Fase 1: Infraestructura** | :+1: Completo | API documentada y deployada en Render |
+| **Fase 2: Core Backend** | 🏗️ En progreso | CRUD Productos + Usuarios + JWT auth |
+| **Fase 3: Integración** | ⏳ Pendiente | Frontend React + deploy Vercel |
+
+
+
