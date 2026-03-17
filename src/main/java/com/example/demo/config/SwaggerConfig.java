@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-/*
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,13 +13,12 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI(){
         return new OpenAPI().info(
             new Info()
-            .title("API KMDigital")
+            .title("API DemoUser")
             .version("0.1")
-            .description("API de Automnotora KMDigital")
+            .description("API de prueba utilizando DevOps")
         );
     }
 
 }
 
-*/
 

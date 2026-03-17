@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: demo-api
+    runtime: docker
+    plan: free
+    envVars:
+      - key: YOUR_PASS
+        sync: false  # Se configura manualmente en el dashboard de Render
+      - key: PORT
+        value: 10000
