@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Firebase credentials
+fir-api-9786d-firebase-adminsdk-fbsvc-b78fe255cc.json
+src/main/resources/fir-api-9786d-firebase-adminsdk-fbsvc-b78fe255cc.json
