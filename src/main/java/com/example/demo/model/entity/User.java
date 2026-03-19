@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.demo.model.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,8 +45,10 @@ public class User {
 
     //Relaciones
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List <Address> addresses;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Order> orders;
 }

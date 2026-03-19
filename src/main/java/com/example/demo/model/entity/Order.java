@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.demo.model.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -56,5 +57,6 @@ public class Order {
     private List <OrderItem> items;
 
     @OneToOne(mappedBy="order", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Shipment shipment;
 }

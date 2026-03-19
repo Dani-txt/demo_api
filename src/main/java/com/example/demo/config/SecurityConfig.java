@@ -12,12 +12,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    //Inyectamos el filtro del la auth
     private final FirebaseAuthenticationFilter firebaseFilter;
 
     public SecurityConfig(FirebaseAuthenticationFilter firebaseFilter) {
         this.firebaseFilter = firebaseFilter;
     }
 
+    //Filtro de seguridad para las conexiones (url publicos) con mi api
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -30,10 +32,13 @@ public class SecurityConfig {
                     "/v3/api-docs/**",
                     "/actuator/**",
                     "/api/v1/health",    // Tu health check
-                    "/api/v1/test/public", //Testeo de pipeline firebase
+                    "/api/v1/test/public",//Testeo de pipeline firebas
+                    "/api/v1/categories", //Busqueda de categoría publica
+                    "/api/v1/products", //PRoductos publicos
                     "/error"
+                    
                 ).permitAll()
-                .anyRequest().authenticated()  // Todo lo demás requiere token Firebase válido
+                .anyRequest().authenticated()
             );
         
         return http.build();

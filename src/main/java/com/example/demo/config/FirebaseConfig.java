@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,15 +24,17 @@ public class FirebaseConfig {
             if (FirebaseApp.getApps().isEmpty()) {
                 InputStream serviceAccountStream = getCredentialsStream();
                 
+                //El usuario a conectarse será = a la credenciales de firebase
                 FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccountStream))
                     .build();
 
+                //la app inicia con la cuenta verificada
                 FirebaseApp.initializeApp(options);
-                System.out.println("✅ Firebase inicializado correctamente");
+                System.out.println("Conexión con Firebase Exitosa");
             }
         } catch (IOException e) {
-            throw new RuntimeException("❌ Error al inicializar Firebase: " + e.getMessage(), e);
+            throw new RuntimeException("Error en la conexión con Firebase: " + e.getMessage(), e);
         }
     }
 

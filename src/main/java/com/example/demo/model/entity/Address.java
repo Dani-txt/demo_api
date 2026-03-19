@@ -2,6 +2,8 @@ package com.example.demo.model.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name ="user_uid", referencedColumnName = "firebase_uid")
+    @JsonIgnore
     private User user; 
 
     @Column(nullable = false)
@@ -49,6 +52,7 @@ public class Address {
 
     //La dirección puede usarse en multiples ordenes tipo informe historico?
     @OneToMany(mappedBy = "address")
+    @JsonIgnore
     private List<Order> orders;
 
 }
