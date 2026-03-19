@@ -5,39 +5,41 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // Password encoder pa cuando lo use
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    //Inyectamos el filtro del la auth
+    private final FirebaseAuthenticationFilter firebaseFilter;
+
+    public SecurityConfig(FirebaseAuthenticationFilter firebaseFilter) {
+        this.firebaseFilter = firebaseFilter;
     }
 
+    //Filtro de seguridad para las conexiones (url publicos) con mi api
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
+            .addFilterBefore(firebaseFilter, UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests(auth -> auth
-                // Públicos: Swagger, health, login
                 .requestMatchers(
-                    "/doc/**",
+                    "/doc/**",           // Swagger público
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/actuator/**",
-                    "/login",
+                    "/api/v1/health",    // Tu health check
+                    "/api/v1/test/public",//Testeo de pipeline firebas
+                    "/api/v1/categories", //Busqueda de categoría publica
+                    "/api/v1/products", //PRoductos publicos
                     "/error"
+                    
                 ).permitAll()
-                //La idea es ir haciendo publicos los endpoint de a poco
-                //cualquier otra cosa que no esté arriba solicitará auntenticación
                 .anyRequest().authenticated()
-            )
-            .formLogin(form -> form.permitAll());
+            );
         
         return http.build();
     }
