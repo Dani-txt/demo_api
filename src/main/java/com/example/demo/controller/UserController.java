@@ -15,7 +15,7 @@ import com.example.demo.model.entity.User;
 import com.example.demo.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // GET /api/v1/users/me - Obtener perfil del usuario logueado
+    // Obtener perfil del usuario logueado
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal String firebaseUid) {
         return userService.findById(firebaseUid)
@@ -32,7 +32,7 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /api/v1/users/sync - Sincronizar después de login en Firebase
+    // Sincronizar después de login en Firebase
     // El frontend llama esto después de obtener el token de Firebase
     @PostMapping("/sync")
     public ResponseEntity<User> syncUser(@AuthenticationPrincipal String firebaseUid,
@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    // PUT /api/v1/users/me - Actualizar perfil
+    // Actualizar perfil
     @PutMapping("/me")
     public ResponseEntity<User> updateProfile(@AuthenticationPrincipal String firebaseUid, @RequestBody Map<String, String> updates) {
         String newName = updates.get("name");
