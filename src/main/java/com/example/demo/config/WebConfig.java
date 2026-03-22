@@ -14,9 +14,11 @@ public class WebConfig {
             @SuppressWarnings("null")
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")  // Cambia "*" por tu dominio si es necesario
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
+                registry.addMapping("/api/v1/**")
+                        .allowedOrigins("http://localhost:5173", "https://demofront.vercel.app")  // Cambia "*" por tu dominio si es necesario
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);;
             }
         };
     }
